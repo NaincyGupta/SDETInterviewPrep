@@ -1,0 +1,26 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        //map containing character and count
+        //left and right pointer 
+        //when count goes above 1 - then leave the left part
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0, right=0, maxlen=0;
+        while(right< s.length()){
+            char r = s.charAt(right);
+            map.put(r, map.getOrDefault(r,0)+1);
+            
+            while(map.get(r)>1){
+                char l = s.charAt(left);
+                map.put(l, map.get(l)-1);
+                left++;
+            }
+          
+            maxlen = Math.max(maxlen, right-left+1);
+            right++;
+        }
+        return maxlen;
+    }
+}
+
+//Time complexity : O(2n)=O(n). In the worst case each character will be visited twice
+//Space complexity : O(min(m,n)). Same as the previous approach. We need O(k) space for the sliding window, where k is the size of the Set
