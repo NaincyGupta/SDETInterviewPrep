@@ -1,0 +1,57 @@
+class Solution {
+    public String clearDigits(String s) {
+        Stack<Character> stack = new Stack<>();
+        StringBuilder answer = new StringBuilder();
+        for(int i=0;i<s.length();i++)
+        {
+            char topele;
+            if(Character.isDigit(s.charAt(i)) && !stack.isEmpty())
+            {
+                stack.pop();
+            }
+            else
+            {
+                stack.push(s.charAt(i));
+            }
+            
+        }
+        for (char ch: stack)
+        {
+            answer.append(ch);
+        }
+
+        return answer.toString();
+    }
+}
+
+or
+
+class Solution {
+
+    public String clearDigits(String s) {
+        StringBuilder answer = new StringBuilder();
+
+        // Iterate over each character in the input string
+        for (int charIndex = 0; charIndex < s.length(); charIndex++) {
+            // If the current character is a digit
+            if (Character.isDigit(s.charAt(charIndex))) {
+                // Remove the last character
+                answer.setLength(answer.length() - 1);
+            } else {
+                // If the character is not a digit, add it to the answer
+                answer.append(s.charAt(charIndex));
+            }
+        }
+
+        return answer.toString();
+    }
+}
+
+Time Complexity: O(n).
+
+We iterate over all characters in s and perform constant-time operations, including checks and either removing the last character of the answer string or adding the current character to the end of it. Therefore, the total time complexity of the algorithm is O(n).
+
+Space Complexity: O(n).
+
+In the C++ implementation, we only need a single variable, charIndex, to track the position of the current character in s. Consequently, the algorithm uses constant (O(1)) extra space.
+
