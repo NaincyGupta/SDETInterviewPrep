@@ -1,0 +1,24 @@
+#Stack 
+  Stack<Character> stack = new Stack<>();  
+  stack.push()
+  stack.pop()
+  stack.peek() - return top most element
+  stack.isEmpty()
+  stack.size()
+
+  
+#StringBuilder 
+  StringBuilder sb = new StringBuilder();
+  sb.append()
+  sb.replace(0,1,"a")
+  sb.delete(0,2);
+  sb.deleteCharAt(index)
+  sb.setCharAt(index)
+  sb.reverse()
+  sn.toString - to convert to string
+
+#HashMap
+
+#HashSet
+
+#String
