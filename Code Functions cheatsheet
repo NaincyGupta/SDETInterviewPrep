@@ -24,3 +24,8 @@
 #String
 
 #ArrayList
+ List<Integer> list = new ArrayList<>();
+list.add(current);
+list.remove(list.size()-1);
+list.isEmpty()
+list.size()
