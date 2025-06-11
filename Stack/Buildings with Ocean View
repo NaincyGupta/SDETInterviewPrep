@@ -1,0 +1,46 @@
+class Solution {
+    public int[] findBuildings(int[] heights) {
+        //for each building, we will iterate over all of the buildings to its right and check if there is any building with equal or greater height than the current building.
+/*
+for current = 0 to N     
+    canSee = true
+    
+    for next = current + 1 to N 
+        if current height <= next height
+            canSee = false
+    
+    if canSee
+        add current index to answer array
+        */
+        //Array list for stack operations 
+        
+        int n = heights.length;
+        List<Integer> list = new ArrayList<>();
+
+        for(int current=0;current<n;current++)
+        {
+            //last building from left<= current building - agar wo choti hai current wale se
+            while(!list.isEmpty() && heights[list.get(list.size()-1)]<=heights[current])
+            {
+                list.remove(list.size()-1);
+            }
+            list.add(current);
+        }
+
+        //push elements from list to array
+        int[] answer = new int[list.size()];
+        for(int i=0;i<list.size();i++)
+        {
+            answer[i] = list.get(i);
+        }
+        return answer;
+
+    }
+}
+
+// Time complexity: O(N).
+
+// We iterate over the given array once.
+// Each building's index can be pushed to answer and popped from answer at most once, and both of the operations take O(1) time.
+
+// Space complexity: O(N).
