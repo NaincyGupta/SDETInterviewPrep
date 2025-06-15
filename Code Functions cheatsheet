@@ -29,3 +29,137 @@ list.add(current);
 list.remove(list.size()-1);
 list.isEmpty()
 list.size()
+
+##
+.length is an array property. .length() is a method for the class String
+
+##
+In Java, the Character class is a wrapper class for the primitive data type char. 
+It provides a variety of utility methods to work with characters, such as checking character properties, converting cases, and more. Here's an overview of the Character class:
+
+Key Features of the Character Class:
+Wrapper for char: Allows you to work with char values as objects.
+Static Utility Methods: Provides methods to check character properties (e.g., is it a digit, letter, whitespace, etc.) and perform transformations (e.g., convert to uppercase or lowercase).
+Example Usage:
+
+public class CharacterExample {
+    public static void main(String[] args) {
+        char ch = 'A';
+
+        // Wrapping a char into a Character object
+        Character character = ch;
+
+        // Checking if the character is a letter
+        System.out.println("Is letter: " + Character.isLetter(ch)); // true
+
+        // Checking if the character is a digit
+        System.out.println("Is digit: " + Character.isDigit(ch)); // false
+
+        // Converting to lowercase
+        System.out.println("Lowercase: " + Character.toLowerCase(ch)); // 'a'
+
+        // Checking if the character is uppercase
+        System.out.println("Is uppercase: " + Character.isUpperCase(ch)); // true
+    }
+}
+
+Commonly Used Methods:
+
+Character Property Checks:
+
+Character.isLetter(char c)
+Character.isDigit(char c)
+Character.isWhitespace(char c)
+Character.isUpperCase(char c)
+Character.isLowerCase(char c)
+
+Character Conversion:
+
+Character.toUpperCase(char c)
+Character.toLowerCase(char c)
+
+Other Utilities:
+
+Character.isLetterOrDigit(char c) (checks if it's a letter or digit)
+Character.getNumericValue(char c) (returns the numeric value of a character)
+Notes:
+The Character class is part of the java.lang package, so you don't need to import it explicitly.
+It is particularly useful when working with streams, collections, or APIs that require objects instead of primitives.
+
+
+##
+STRING method in java
+
+1. Basic String Manipulation
+length(): Returns the length of the string.
+charAt(int index): Retrieves the character at the specified index.
+substring(int beginIndex, int endIndex): Extracts a portion of the string.
+concat(String str): Concatenates the specified string to the end of the current string.
+
+2. String Comparison
+equals(Object obj): Compares two strings for equality (case-sensitive).
+equalsIgnoreCase(String str): Compares two strings for equality, ignoring case.
+compareTo(String str): Compares two strings lexicographically.
+startsWith(String prefix) / endsWith(String suffix): Checks if the string starts or ends with a specific substring.
+
+3. Searching
+indexOf(String str): Returns the index of the first occurrence of the specified substring.
+lastIndexOf(String str): Returns the index of the last occurrence of the specified substring.
+contains(CharSequence s): Checks if the string contains the specified sequence.
+
+4. Case Conversion
+toUpperCase(): Converts all characters to uppercase.
+toLowerCase(): Converts all characters to lowercase.
+
+5. Trimming and Replacing
+trim(): Removes leading and trailing whitespace.
+replace(char oldChar, char newChar): Replaces all occurrences of a character with another.
+replaceAll(String regex, String replacement): Replaces all substrings matching a regex with a replacement.
+
+6. Splitting and Joining
+split(String regex): Splits the string into an array based on a regex.
+join(CharSequence delimiter, CharSequence... elements): Joins multiple strings with a specified delimiter.
+
+7. Conversion
+valueOf(Object obj): Converts an object to its string representation.
+toCharArray(): Converts the string into a character array.
+
+public class ValueOfExample {
+    public static void main(String[] args) {
+        int number = 42;
+
+        // Using valueOf to convert to String
+        String strNumber = String.valueOf(number);
+    }
+}
+
+
+public class ToCharArrayExample {
+    public static void main(String[] args) {
+        String text = "Hello";
+
+        // Convert string to char array
+        char[] charArray = text.toCharArray();
+    }
+}
+
+
+##
+REGEX
+
+1. Numbers Only
+Regex: ^\d+$
+Description: Matches a string containing only digits (0-9).
+Example: "12345" matches, but "123a" does not.
+
+2. Letters Only
+Regex: ^[a-zA-Z]+$
+Description: Matches a string containing only uppercase and lowercase letters.
+Example: "abcXYZ" matches, but "abc123" does not.
+
+3. Letters and Numbers (Alphanumeric)
+Regex: ^[a-zA-Z0-9]+$
+Description: Matches a string containing only letters and digits.
+Example: "abc123" matches, but "abc123!" does not.
+
+
