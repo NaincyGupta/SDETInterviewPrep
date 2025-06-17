@@ -1,0 +1,20 @@
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for(int i=0;i<nums.length;i++)
+        {
+            count += map.getOrDefault(nums[i],0);
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        return count;
+    }
+}
+
+// Time complexity: O(n)
+
+// We iterate over the input once. At each iteration, we perform O(1) work since hash map operations run in constant time.
+
+// Space complexity: O(n)
+
+// In the worst case, the array contains at most n unique numbers, then counts will grow to a size of n.
