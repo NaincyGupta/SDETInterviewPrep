@@ -1,0 +1,28 @@
+class Solution {
+  public static int[] makeSquares(int[] arr) {
+    int n = arr.length;
+    int[] squares = new int[n];
+    int highest_index= arr.length -1;
+    int left = 0, right = arr.length -1;
+    while(left<=right)
+    {
+      int square_left = arr[left] * arr[left];
+      int square_right = arr[right] * arr[right];
+      if(square_right>square_left)
+      {
+        squares[highest_index--] = square_right;
+        right--;
+      }
+      else
+      {
+        squares[highest_index--] = square_left;
+        left++;
+      }
+     
+    }
+    return squares;
+  }
+}
+
+time complexity O(n)
+space complexity O(n)
