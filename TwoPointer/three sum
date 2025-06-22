@@ -1,0 +1,41 @@
+import java.util.*;
+
+class Solution {
+
+  public static List<List<Integer>> searchTriplets(int[] arr) {
+    List<List<Integer>> triplets = new ArrayList<>();
+    //sort array
+    Arrays.sort(arr);
+
+    //pass negative or 0 value
+    for(int i=0;i<arr.length && arr[i]<=0;i++)
+    {
+      if(i==0 || arr[i-1]!=arr[i]) //bypass any duplicate negative or 0 value
+      {
+        twosum(arr,i,triplets); 
+      }
+    }
+    return triplets;
+  }
+  void twosum(int[] arr,int i,List<List<Integer>> triplets)
+  {
+    int lo = i+1, hi =arr.length -1;
+    while(lo<hi)
+    {
+      int sum = arr[lo]+arr[i]+arr[hi];
+      if(sum<0)
+      {
+        lo++;
+      }
+      else if (sum > 0)
+      {
+        hi--;
+      }
+      else
+      {
+        triplets.add(Arrays.asList(arr[lo++],arr[i],arr[hi--]));
+        while(lo<hi && arr[lo]==arr[lo-1]) lo++; //bypass any duplicate positive value
+      }
+    }
+  }
+}
