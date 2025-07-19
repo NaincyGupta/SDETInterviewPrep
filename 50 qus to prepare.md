@@ -3,6 +3,26 @@
 ## **Arrays (15 Questions)**
 
 1. **Two Sum** – \[LeetCode #1]
+```
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        //put number, index in map - do this later
+        //see if hashmap have target-num 
+        //if yes then return index of number and target-num
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            if(map.containsKey(target-nums[i]))
+            {
+                return new int[]{i,map.get(target-nums[i])};
+            }
+            map.put(nums[i],i);
+        }
+        return null;
+    }
+}
+```
+
 2. **Best Time to Buy and Sell Stock** – \[#121]
 3. **Contains Duplicate** – \[#217]
 4. **Product of Array Except Self** – \[#238]
