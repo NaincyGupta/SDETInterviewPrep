@@ -24,6 +24,23 @@ class Solution {
 ```
 
 2. **Best Time to Buy and Sell Stock** – \[#121]
+
+```
+class Solution {
+    public int maxProfit(int[] prices) {
+        //next min price 
+        //max profit 
+        int minprice =prices[0];
+        int maxpro = 0;
+        for(int i=0;i<prices.length;i++)
+        {
+          minprice = Math.min(minprice,prices[i]);
+          maxpro = Math.max(maxpro,prices[i]-minprice);
+        }
+        return maxpro;
+    }
+}
+```
 3. **Contains Duplicate** – \[#217]
 4. **Product of Array Except Self** – \[#238]
 5. **Maximum Subarray (Kadane's Algorithm)** – \[#53]
