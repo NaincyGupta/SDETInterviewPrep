@@ -1,0 +1,51 @@
+
+
+## 🔧 **Test Automation / Framework Design** — *10 Questions*
+
+These questions assess how well you can build or work with automation frameworks:
+
+21. Design a Selenium test framework using Page Object Model
+22. Explain the benefits of BDD with Cucumber or Behave
+23. How would you handle flaky UI tests?
+24. Design a REST API test framework using REST Assured or Postman/Newman
+25. How do you validate data from backend and frontend?
+26. What are the key components of a CI/CD pipeline for test automation?
+27. How do you manage test data across environments?
+28. How do you implement parallel test execution?
+29. What are some anti-patterns in automation frameworks?
+30. How would you write reusable utilities for login and environment setup?
+
+---
+
+## 🧪 **Testing & QA Concepts** — *10 Questions*
+
+These test your QA depth and practical testing mindset:
+
+31. How would you test a calculator app?
+32. What is the difference between regression and re-testing?
+33. What’s the difference between smoke and sanity testing?
+34. How would you test an API with authentication?
+35. What is a flaky test and how do you fix it?
+36. What are mocking and stubbing? Give examples.
+37. Explain test pyramid (unit vs integration vs E2E)
+38. What’s the difference between assert and verify in testing?
+39. How do you ensure high test coverage?
+40. What are some common performance testing metrics?
+
+---
+
+## 💬 **Behavioral / Situational** — *10 Questions*
+
+Expect to use the **STAR** method (Situation, Task, Action, Result):
+
+41. Tell me about a time you found a critical bug just before release
+42. Describe a time you improved an automation framework
+43. How do you handle conflicts with developers or product managers?
+44. Describe a time you had to work under tight deadlines
+45. Tell me about a time your test automation failed in CI
+46. Describe how you introduced test coverage in a previously untested codebase
+47. Tell me about a bug that was hard to reproduce
+48. How do you prioritize test cases when you have limited time?
+49. Tell me about a time you received critical feedback
+50. How do you stay up to date with testing trends or tools?
+
