@@ -89,6 +89,23 @@ class Solution {
 }
 ```
 5. **Maximum Subarray (Kadane's Algorithm)** – \[#53]
+
+```
+class Solution {
+    public int maxSubArray(int[] nums) {
+        //find curr sum
+        //compare maxsum with currsum
+        int currsum = 0;
+        int maxsum = nums[0];
+        for(int i=0;i<nums.length;i++)
+        {
+            currsum = Math.max(0,currsum)+nums[i];
+            maxsum = Math.max(maxsum,currsum);
+        }
+        return maxsum;
+    }
+}
+```
 6. **Majority Element** – \[#169]
 7. **Move Zeroes** – \[#283]
 8. **Rotate Array** – \[#189]
