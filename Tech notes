@@ -1,0 +1,84 @@
+Planning
+
+Java
+- collections - hash map, hashest , array list, 
+- priority queue - min heap - question
+- multithreading
+- error handling
+
+Javascript 
+- main concepts 
+
+SQL basics 
+- select, joinery, group by, aggregate
+
+Leetcode problems 
+- array, string, hash map
+
+UI testing - website
+- pom
+- locators 
+- Web driver basics
+- waits
+- selenium
+- specs 
+- framework 
+- reporting
+- browserstack 
+- cypress, playwright
+- challenges and overcome, flaky tests
+- how to add logging 
+
+Leetcode problems 
+- stack, queue, linkedlust
+
+UI testing - mobile
+- pom
+- locators - android iOS
+- Web driver basics
+- appium
+- framework 
+- custom reporting
+- mobile device farm
+- challenges and overcome, flaky tests
+- how to add logging 
+
+Leetcode problems 
+- sorting, searching
+ 
+API testing
+- get post put delete
+- see the api testing. Framework 
+- Json parsing, schema validation
+- authentication 
+- parameter, data driven 
+- framework design 
+- challenges and overcome , flaky tests
+- testNG
+- Junit
+- Jmeter
+- swagger, rest assured, postman , bruno 
+- requires.in
+
+Devops
+- CI/CD GitHub. Actions, Jenkins 
+- docker 
+- grafana 
+- sentry 
+- AWS cloud watch
+- kubernetes
+- new relic
+
+Testing. 
+- types 
+- examples
+- how to find RCA 
+- test strategy 
+- what is test plan
+- XRAY, test. Rail
+
+Extras
+- metrics, detailed log analysis, and device debugging  - Linux or Android automation 
+- performance testing 
+
+
