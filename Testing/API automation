@@ -1,0 +1,16 @@
+HTTP Methods: RESTful APIs leverage standard HTTP methods to indicate actions on resources. Here’s a breakdown of the most common:
+
+GET: Retrieves data from the server (e.g., getting a list of books, fetching a single book by ID).
+POST: Creates a new resource on the server (e.g., adding a new book to the catalog).
+PUT: Updates an existing resource on the server (e.g., editing a book’s information).
+DELETE: Removes a resource from the server (e.g., deleting a book).
+Status codes: The server returns HTTP status codes to convey the outcome of an API request. Understanding these codes helps you test successfully:
+
+2xx Success: Indicates successful actions (e.g., 200 OK for a successful GET, 201 Created after a successful POST).
+4xx Client Error: Signals an issue likely related to the request itself (e.g., 400 Bad Request for invalid data, 404 Not Found if a resource doesn’t exist).
+5xx Server Error: Points to problems on the server side (e.g., 500 Internal Server Error).
+Validation: A crucial aspect of API testing is ensuring responses from the server are valid and meet expectations. This involves:
+
+Structure: Verify that the response adheres to the expected format, typically JSON for RESTful APIs.
+Content-Type: Confirm that the Content-Type header correctly specifies the format of the response (e.g., application/json).
+Data Integrity: Check that the data within the response matches your expectations, both in terms of values and their types.
