@@ -1,32 +1,8 @@
-HTTP Methods: RESTful APIs leverage standard HTTP methods to indicate actions on resources. Here’s a breakdown of the most common:
-
-GET: Retrieves data from the server (e.g., getting a list of books, fetching a single book by ID).
-POST: Creates a new resource on the server (e.g., adding a new book to the catalog).
-PUT: Updates an existing resource on the server (e.g., editing a book’s information).
-DELETE: Removes a resource from the server (e.g., deleting a book).
-Status codes: The server returns HTTP status codes to convey the outcome of an API request. Understanding these codes helps you test successfully:
-
-2xx Success: Indicates successful actions (e.g., 200 OK for a successful GET, 201 Created after a successful POST).
-4xx Client Error: Signals an issue likely related to the request itself (e.g., 400 Bad Request for invalid data, 404 Not Found if a resource doesn’t exist).
-5xx Server Error: Points to problems on the server side (e.g., 500 Internal Server Error).
-Validation: A crucial aspect of API testing is ensuring responses from the server are valid and meet expectations. This involves:
-
-Structure: Verify that the response adheres to the expected format, typically JSON for RESTful APIs.
-Content-Type: Confirm that the Content-Type header correctly specifies the format of the response (e.g., application/json).
-Data Integrity: Check that the data within the response matches your expectations, both in terms of values and their types.
-
-Beyond the Basics
-Error Handling: Include tests that deliberately trigger error scenarios (e.g., invalid input, missing resources) and ensure your API responds with appropriate error codes and messages.
-Parameterization: Use PyTest’s parameterization feature to efficiently test multiple input variations within a single test function.
-
-
----
-
 ## 🔹 Stage 1: Fundamentals (Beginner)
 
 **What to Learn**
-
-* What is an API? Types: REST, SOAP, GraphQL, gRPC.
+---
+*** What is an API? Types: REST, SOAP, GraphQL, gRPC.**
 
 REST (Representational State Transfer):
 REST is an architectural style for designing networked applications.
@@ -40,18 +16,15 @@ It allows clients to request exactly the data they need, preventing over-fetchin
 GraphQL APIs typically expose a single endpoint, and clients send queries to retrieve specific data, mutations to modify data, and subscriptions for real-time updates.
 
 https://dev.to/pragativerma18/a-guide-to-the-most-popular-types-of-apis-rest-soap-graphql-and-grpc-4ail
-
-* Key concepts: Request/Response, Endpoints, Resources, Methods (GET, POST, PUT, DELETE, PATCH).
-
-Perfect place to start 👍 Let me break down these **key API concepts** in a clear way, with examples so they stick:
-
 ---
+*** Key concepts: Request/Response, Endpoints, Resources, Methods (GET, POST, PUT, DELETE, PATCH).**
 
-## 🔑 1. Request & Response
+🔑 1. Request & Response
 
 * **Request**: What the client (you, browser, Postman, automation script) sends to the server.
 
   * Includes **method** (GET, POST, etc.), **URL/endpoint**, **headers**, and **body** (if needed).
+    
 * **Response**: What the server sends back.
 
   * Includes **status code**, **headers**, and **body** (data).
@@ -75,7 +48,7 @@ Perfect place to start 👍 Let me break down these **key API concepts** in a cl
 
 ---
 
-## 🔑 2. Endpoints
+🔑 2. Endpoints
 
 * An **endpoint** is a specific URL where an API can be accessed.
 * Think of it like an “address” to reach a resource.
@@ -87,7 +60,7 @@ Perfect place to start 👍 Let me break down these **key API concepts** in a cl
 
 ---
 
-## 🔑 3. Resources
+🔑 3. Resources
 
 * A **resource** is the data object you’re interacting with (usually nouns: users, products, orders).
 * REST APIs treat resources like **entities** that you can manipulate with HTTP methods.
@@ -100,7 +73,7 @@ Perfect place to start 👍 Let me break down these **key API concepts** in a cl
 
 ---
 
-## 🔑 4. Methods (CRUD Operations)
+🔑 4. Methods (CRUD Operations)
 
 HTTP methods define **what action** you want to perform on a resource.
 They often map to **CRUD** (Create, Read, Update, Delete).
@@ -166,10 +139,89 @@ They often map to **CRUD** (Create, Read, Update, Delete).
 
 **Idempotent** means that making the same API call multiple times leaves the system in the same state as making it once.
 In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent depending on implementation.
+---
+*** HTTP basics: Headers, Status Codes, Query Params, Path Params, Body, Authentication.**
 
-* HTTP basics: Headers, Status Codes, Query Params, Path Params, Body, Authentication.
-* JSON vs XML payloads.
-* Tools: Postman (manual testing), curl (CLI).
+
+**Status Codes**
+1xx → Informational
+100 Continue
+
+2xx → Success
+200 OK – request succeeded
+201 Created – new resource created
+204 No Content – success but no body returned
+
+3xx → Redirection
+301 Moved Permanently, 302 Found
+
+4xx → Client Error
+400 Bad Request – invalid input
+401 Unauthorized – no/invalid credentials
+403 Forbidden – not allowed
+404 Not Found – resource doesn’t exist
+
+5xx → Server Error
+500 Internal Server Error
+503 Service Unavailable
+
+---
+*** JSON vs XML payloads.**
+
+🔹 JSON (JavaScript Object Notation)
+
+* **Lightweight** data format, human-readable.
+* Uses **key-value pairs** with `{ }` and `[ ]`.
+* Most modern REST APIs use JSON.
+* Easy to parse in any programming language.
+
+**Example JSON payload**
+
+```json
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "roles": ["admin", "editor"],
+  "address": {
+    "city": "San Francisco",
+    "zip": "94107"
+  }
+}
+```
+
+---
+
+🔹 XML (eXtensible Markup Language)
+
+* **Older, heavier** format (used in SOAP APIs, legacy systems).
+* Uses **tags** `<tag>value</tag>` to represent data.
+* More verbose than JSON.
+* Supports schemas (XSD) for strict validation.
+
+**Example XML payload**
+
+```xml
+<User>
+  <Id>123</Id>
+  <Name>John Doe</Name>
+  <Email>john@example.com</Email>
+  <Roles>
+    <Role>admin</Role>
+    <Role>editor</Role>
+  </Roles>
+  <Address>
+    <City>San Francisco</City>
+    <Zip>94107</Zip>
+  </Address>
+</User>
+```
+
+
+---
+*** Tools: Postman (manual testing), curl (CLI).**
+
+---
 
 **Questions to Ask Yourself**
 
@@ -256,3 +308,23 @@ In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent d
 9. How do you test an API that uses OAuth2/JWT authentication?
 10. How do you ensure your API test suite is maintainable and scalable?
 
+HTTP Methods: RESTful APIs leverage standard HTTP methods to indicate actions on resources. Here’s a breakdown of the most common:
+
+GET: Retrieves data from the server (e.g., getting a list of books, fetching a single book by ID).
+POST: Creates a new resource on the server (e.g., adding a new book to the catalog).
+PUT: Updates an existing resource on the server (e.g., editing a book’s information).
+DELETE: Removes a resource from the server (e.g., deleting a book).
+Status codes: The server returns HTTP status codes to convey the outcome of an API request. Understanding these codes helps you test successfully:
+
+2xx Success: Indicates successful actions (e.g., 200 OK for a successful GET, 201 Created after a successful POST).
+4xx Client Error: Signals an issue likely related to the request itself (e.g., 400 Bad Request for invalid data, 404 Not Found if a resource doesn’t exist).
+5xx Server Error: Points to problems on the server side (e.g., 500 Internal Server Error).
+Validation: A crucial aspect of API testing is ensuring responses from the server are valid and meet expectations. This involves:
+
+Structure: Verify that the response adheres to the expected format, typically JSON for RESTful APIs.
+Content-Type: Confirm that the Content-Type header correctly specifies the format of the response (e.g., application/json).
+Data Integrity: Check that the data within the response matches your expectations, both in terms of values and their types.
+
+Beyond the Basics
+Error Handling: Include tests that deliberately trigger error scenarios (e.g., invalid input, missing resources) and ensure your API responds with appropriate error codes and messages.
+Parameterization: Use PyTest’s parameterization feature to efficiently test multiple input variations within a single test function.
