@@ -191,7 +191,8 @@ In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent d
 
 **Example JSON payload**
 
-```json
+```
+json
 {
   "id": 123,
   "name": "John Doe",
@@ -235,7 +236,9 @@ In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent d
 ---
 ***Tools: Postman (manual testing), curl (CLI).**
 
+```
 https://www.youtube.com/watch?app=desktop&v=VywxIQ2ZXw4&t=186s
+```
 
 
 
@@ -275,11 +278,12 @@ Security Testing → Login returns JWT → use token in Authorization header →
 
 7.1 Validation Testing
 Validation testing ensures that the API returns the correct data in the right format.
-
+```
 test('User email is valid', async () => {
     const response = await axios.get('https://jsonplaceholder.typicode.com/users/1');
     expect(response.data.email).toMatch(/\S+@\S+\.\S+/);
 });
+```
 7.2 Functional Testing
 Functional testing verifies that the API works as expected and all the endpoint interactions are functioning correctly.
 
@@ -320,7 +324,23 @@ Contract testing ensures API consumer and provider stick to agreed request/respo
 
 Can be done via:
 Schema validation (SuperTest + Ajv).
-AJV ?
+AJV ? 
+ 
+Ajv → more powerful, supports JSON Schema draft-07+, custom keywords, better performance for big schemas.
+```
+// Initialize JSON Schema validator
+const ajv = new Ajv({ allErrors: true });
+addFormats(ajv); // supports formats like "email", "uri", "date-time"
+
+const app = "https://api.example.com"; // Replace with real API base URL
+
+describe("Contract Testing - User API", () => {
+  it("GET /users/:id should match User schema", async () => {
+    const res = await request(app).get("/users/1").expect(200);
+
+    const validate = ajv.compile(userSchema);
+    const valid = validate(res.body);
+    ```
 
 ```
 const request = require("supertest");
@@ -354,6 +374,9 @@ describe("Contract Testing with JSON Schema", () => {
 ```
 
 Consumer-driven testing tools (Pact, Spring Cloud Contract).
+Tools like Pact let consumers (frontend/microservices) define the expected contract.
+The provider (API) is then verified against that contract.
+
 Real-world benefit: Prevents breaking changes in microservices or frontend-backend integration.
 
 
@@ -385,6 +408,27 @@ JAVA - REST ASSURED
 
 
 * API mocking/stubbing (WireMock, Postman mock server).
+
+API mocking and stubbing helps us test independently of backend availability. We use WireMock when we need a local controllable stub (simulate latency, 500 errors, etc.), and Postman mock servers when we want quick mocks for frontend or QA teams. This allows parallel development, better test coverage, and stable CI pipelines
+
+nock (most common in Node.js testing)
+
+Jest allows you to easily mock modules in your tests. Here’s an example of mocking axios get response:
+```
+jest.mock('axios');
+
+axios.get.mockResolvedValue({
+    data: {
+        id: 1,
+        name: 'Leanne Graham'
+    }
+});
+
+test('Get user with ID 1', async () => {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users/1');
+    expect(response.data.name).toBe('Leanne Graham');
+});
+```
 * API documentation tools: Swagger/OpenAPI.
 
 **Questions to Ask**
@@ -394,6 +438,116 @@ JAVA - REST ASSURED
 * How do I validate nested JSON responses?
 * What’s the difference between functional and integration API tests?
 * How do I handle dynamic data in API responses?
+
+
+
+---
+
+# 🔹 1. How do I validate nested JSON responses?
+
+👉 If an API returns **complex/nested JSON**, you need to assert **deep object properties**.
+Example response:
+
+```json
+{
+  "id": 1,
+  "name": "Alice",
+  "address": {
+    "street": "123 Main St",
+    "city": "Irvine",
+    "geo": {
+      "lat": 33.6846,
+      "lng": -117.8265
+    }
+  }
+}
+```
+
+### ✅ Jest + SuperTest Example:
+
+```js
+test("should validate nested JSON fields", async () => {
+  const res = await request(app).get("/users/1");
+
+  expect(res.statusCode).toBe(200);
+  expect(res.body.address.city).toBe("Irvine");      // nested property
+  expect(res.body.address.geo.lat).toBe(33.6846);    // deep nested property
+});
+```
+
+
+
+---
+
+# 🔹 2. What’s the difference between **functional** and **integration** API tests?
+
+| Type                     | Scope                                                                                                   | Example                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Functional API Test**  | Tests a **single API endpoint** in isolation, verifying its input/output behavior matches requirements. | Test `GET /users/1` returns correct status code & JSON fields.                                       |
+| **Integration API Test** | Tests how **multiple APIs/services work together**, including DB, authentication, external services.    | Test `POST /order` creates an order, then `GET /order/:id` retrieves it correctly (end-to-end flow). |
+
+👉 In short:
+
+* **Functional** = “Does this API work as per spec?”
+* **Integration** = “Do APIs + services work correctly together in a workflow?”
+
+
+
+# 🔹 3. How do I handle dynamic data in API responses?
+
+Many APIs return values that **change every run** (timestamps, IDs, tokens, UUIDs). If you assert exact values, tests will fail.
+
+### ✅ Strategies:
+
+1. **Partial Validation**
+   Only check the fields you care about.
+
+   ```js
+   expect(res.body).toEqual(
+     expect.objectContaining({
+       id: expect.any(Number),  // dynamic but type validated
+       name: "Alice"
+     })
+   );
+   ```
+
+2. **Regex/Pattern Matching**
+
+   ```js
+   expect(res.body.token).toMatch(/^eyJ/); // JWT starts with eyJ
+   ```
+
+3. **Schema Validation** (Ajv, jsonschema)
+
+   ```js
+   const schema = {
+     type: "object",
+     properties: {
+       id: { type: "number" },
+       createdAt: { type: "string", format: "date-time" }
+     },
+     required: ["id", "createdAt"]
+   };
+   expect(validator.validate(schema, res.body)).toBe(true);
+   ```
+
+4. **Store Dynamic Data for Next Requests**
+   Example: Login API returns a JWT → store it → use it in headers for subsequent tests.
+
+   ```js
+   let token;
+   test("login returns token", async () => {
+     const res = await request(app).post("/login").send({ user: "alice", pass: "123" });
+     token = res.body.token;
+     expect(token).toBeDefined();
+   });
+
+   test("access protected resource", async () => {
+     const res = await request(app).get("/profile").set("Authorization", `Bearer ${token}`);
+     expect(res.statusCode).toBe(200);
+   });
+   ```
+
 
 ---
 
