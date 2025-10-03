@@ -15,6 +15,18 @@ GraphQL is a query language for APIs and a server-side runtime for executing que
 It allows clients to request exactly the data they need, preventing over-fetching or under-fetching of data.
 GraphQL APIs typically expose a single endpoint, and clients send queries to retrieve specific data, mutations to modify data, and subscriptions for real-time updates.
 
+Main Characteristics:
+
+Strongly Typed: GraphQL APIs are strongly typed, which means that each field has a specific data type. This makes it easier to validate and handle data on the client and server sides.
+
+Query Language: GraphQL has its own query language that allows clients to specify exactly what data they need. This reduces over-fetching of data and improves performance.
+
+Single Endpoint: GraphQL APIs have a single endpoint, which means that clients can fetch all the data they need from a single request.
+
+Declarative: GraphQL APIs are declarative, which means that clients specify what they want, not how to get it. This allows for more efficient and flexible data fetching.
+
+Schema-Driven: GraphQL APIs are schema-driven, which means that the schema defines the structure of the data and the available queries and mutations. This makes it easier for developers to understand and work with the API.
+
 https://dev.to/pragativerma18/a-guide-to-the-most-popular-types-of-apis-rest-soap-graphql-and-grpc-4ail
 
 ---
@@ -249,8 +261,129 @@ https://www.youtube.com/watch?app=desktop&v=VywxIQ2ZXw4&t=186s
   * Data-driven testing
   * Performance/load testing
   * Security testing (basic auth, OAuth2, JWT).
+ 
+Functional Testing → Valid user creation (201 Created).
+
+Negative Testing → Invalid email returns 400 Bad Request.
+
+Data-Driven Testing → Reuse same test with multiple datasets using test.each().
+
+Performance/Load Testing → Multiple parallel requests using Promise.all.
+
+Security Testing → Login returns JWT → use token in Authorization header → verify access.
+
+
+7.1 Validation Testing
+Validation testing ensures that the API returns the correct data in the right format.
+
+test('User email is valid', async () => {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users/1');
+    expect(response.data.email).toMatch(/\S+@\S+\.\S+/);
+});
+7.2 Functional Testing
+Functional testing verifies that the API works as expected and all the endpoint interactions are functioning correctly.
+
+test('Create a new post', async () => {
+    const post = {
+        title: 'foo',
+        body: 'bar',
+        userId: 1
+    };
+    const response = await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+    expect(response.data.title).toBe('foo');
+    expect(response.data.body).toBe('bar');
+    expect(response.data.userId).toBe(1);
+});
+7.3 Security Testing
+Security testing validates that your API is secure from attacks and vulnerabilities.
+
+test('Cannot access secured endpoint without token', async () => {
+    try {
+        await axios.get('https://myapi/secure');
+    } catch (error) {
+        expect(error.response.status).toBe(401);
+    }
+});
+7.4 Error Detection
+Error detection checks how the API handles failures. Does it crash? Does it return meaningful error messages?
+
+test('Non-existent endpoint returns 404', async () => {
+    try {
+        await axios.get('https://jsonplaceholder.typicode.com/nonexistent');
+    } catch (error) {
+        expect(error.response.status).toBe(404);
+    }
+});
+
+**Contract testing **
+Contract testing ensures API consumer and provider stick to agreed request/response format.
+
+Can be done via:
+Schema validation (SuperTest + Ajv).
+AJV ?
+
+```
+const request = require("supertest");
+const Ajv = require("ajv");  // JSON schema validator
+const ajv = new Ajv();
+const app = "https://api.example.com";
+
+// Define the contract
+const userSchema = {
+  type: "object",
+  required: ["id", "name", "email", "isActive"],
+  properties: {
+    id: { type: "number" },
+    name: { type: "string" },
+    email: { type: "string", format: "email" },
+    isActive: { type: "boolean" }
+  },
+  additionalProperties: false
+};
+
+describe("Contract Testing with JSON Schema", () => {
+  it("response must follow user schema", async () => {
+    const res = await request(app).get("/users/1").expect(200);
+
+    const validate = ajv.compile(userSchema);
+    const valid = validate(res.body);
+
+    expect(valid).toBe(true); // contract holds
+  });
+});
+```
+
+Consumer-driven testing tools (Pact, Spring Cloud Contract).
+Real-world benefit: Prevents breaking changes in microservices or frontend-backend integration.
+
+
+Fuzz testing - sql injection 
+
+
+
+GRAPHQL: https://www.freecodecamp.org/news/building-consuming-and-documenting-a-graphql-api/
+
 * Writing test cases for APIs.
 * Automation basics: using Java (RestAssured), Python (Requests, PyTest), or JS (SuperTest, Playwright).
+
+In javascript -> using AXIOS as A promise-based HTTP client for Node.js and browsers, JEST as test runner 
+https://medium.com/@waleedmousa975/a-comprehensive-tutorial-on-api-testing-with-javascript-ddee3192bac5
+
+SUPERTEST with JEST
+
+// Jest syntax
+describe("API Tests", () => {
+  it("should return 200 for GET /users", async () => {
+    const res = await request(app).get("/users/1");  // SuperTest call
+    expect(res.status).toBe(200);                   // Jest assertion
+  });
+});
+
+
+PLAYWRIGHT API TESTS
+JAVA - REST ASSURED
+
+
 * API mocking/stubbing (WireMock, Postman mock server).
 * API documentation tools: Swagger/OpenAPI.
 
