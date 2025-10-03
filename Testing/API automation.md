@@ -2,7 +2,7 @@
 
 **What to Learn**
 ---
-*** What is an API? Types: REST, SOAP, GraphQL, gRPC.**
+***What is an API? Types: REST, SOAP, GraphQL, gRPC.**
 
 REST (Representational State Transfer):
 REST is an architectural style for designing networked applications.
@@ -16,8 +16,9 @@ It allows clients to request exactly the data they need, preventing over-fetchin
 GraphQL APIs typically expose a single endpoint, and clients send queries to retrieve specific data, mutations to modify data, and subscriptions for real-time updates.
 
 https://dev.to/pragativerma18/a-guide-to-the-most-popular-types-of-apis-rest-soap-graphql-and-grpc-4ail
+
 ---
-*** Key concepts: Request/Response, Endpoints, Resources, Methods (GET, POST, PUT, DELETE, PATCH).**
+***Key concepts: Request/Response, Endpoints, Resources, Methods (GET, POST, PUT, DELETE, PATCH).**
 
 🔑 1. Request & Response
 
@@ -128,7 +129,7 @@ They often map to **CRUD** (Create, Read, Update, Delete).
 
 ---
 
-### 📝 Putting it all together:
+###Putting it all together:###
 
 * **Resource** = `users`
 * **Endpoint** = `https://api.example.com/users`
@@ -137,11 +138,12 @@ They often map to **CRUD** (Create, Read, Update, Delete).
 
 ---
 
-**Idempotent** means that making the same API call multiple times leaves the system in the same state as making it once.
+**Idempotent** 
+means that making the same API call multiple times leaves the system in the same state as making it once.
 In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent depending on implementation.
----
-*** HTTP basics: Headers, Status Codes, Query Params, Path Params, Body, Authentication.**
 
+---
+***HTTP basics: Headers, Status Codes, Query Params, Path Params, Body, Authentication.**
 
 **Status Codes**
 1xx → Informational
@@ -166,7 +168,7 @@ In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent d
 503 Service Unavailable
 
 ---
-*** JSON vs XML payloads.**
+***JSON vs XML payloads.**
 
 🔹 JSON (JavaScript Object Notation)
 
@@ -219,7 +221,11 @@ In HTTP: GET, PUT, DELETE are idempotent. POST is not. PATCH can be idempotent d
 
 
 ---
-*** Tools: Postman (manual testing), curl (CLI).**
+***Tools: Postman (manual testing), curl (CLI).**
+
+https://www.youtube.com/watch?app=desktop&v=VywxIQ2ZXw4&t=186s
+
+
 
 ---
 
