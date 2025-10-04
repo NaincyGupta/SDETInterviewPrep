@@ -556,9 +556,7 @@ Many APIs return values that **change every run** (timestamps, IDs, tokens, UUID
 **What to Learn**
 
 * API automation frameworks:
-
   * Java + RestAssured + TestNG/JUnit + Maven/Gradle
-  * Python + PyTest + Requests
   * JavaScript + Jest/SuperTest
 * BDD with Cucumber + API steps.
 * Assertions: JSONPath, XMLPath.
@@ -568,6 +566,13 @@ Many APIs return values that **change every run** (timestamps, IDs, tokens, UUID
 * Contract testing with Pact.
 * Performance testing with JMeter/Gatling/Locust.
 
+jmeter with java
+https://medium.com/javarevisited/rest-api-load-performance-testing-using-apache-jmeter-63605572e862
+
+Number of Threads (users): The number of users that JMeter will attempt to simulate.
+Ramp-Up Period (in seconds): The duration of time that JMeter will distribute the start of the threads over.
+Loop Count: The number of times to execute the test.
+
 **Questions to Ask**
 
 * How do I design a reusable API automation framework?
@@ -575,6 +580,10 @@ Many APIs return values that **change every run** (timestamps, IDs, tokens, UUID
 * How do I manage environment configs (dev/stage/prod)?
 * How do I handle authentication in automated tests (tokens refresh, OAuth flow)?
 * How do I ensure test scalability and maintainability?
+
+-----
+how do you design a framework from scratch for api testing using rest assured, tell all important librarirs to use and examples of functional, negative, data driven , contract,performance , security, load, mocking stubbing and schemavalidation kinds of testing, tell me the some of the challenges that we get and how to resolve them 
+
 
 ---
 
