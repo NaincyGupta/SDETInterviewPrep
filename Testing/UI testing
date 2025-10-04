@@ -1,0 +1,70 @@
+### FOR WEB BASED TESTING
+- selenium with javascript
+- playwright with typescript having both UI and API test for web app
+
+---
+### MIGRATION 
+### 🚀 Why Move from Selenium + JS to Playwright + JS/TS
+#### In short
+
+#### 1. **Modern Architecture & Reliability**
+
+* Playwright: Establishes a single, persistent WebSocket connection directly with the browser. All commands and responses are exchanged through this open channel, utilizing the browser's native protocol. This direct communication minimizes overhead and latency.
+* Selenium: Relies on the WebDriver protocol, which involves sending commands over HTTP (typically as JSON) to a browser-specific driver (e.g., ChromeDriver). This process introduces latency for each command as it requires establishing and sending commands over a TCP connection for every action. 
+
+#### Built-in Auto-Waiting:
+Playwright automatically waits for elements to be ready before performing actions, reducing the need for explicit waits and minimizing the chances of flaky tests due due to timing issues. Selenium often requires more manual handling of waits, which can impact performance and reliability if not managed carefully.
+
+#### 2. **UI + API Testing in One Framework**
+
+* Selenium is only for **UI testing**.
+* Playwright natively supports **API testing** (e.g., `request.newContext()` for mocking, intercepting, validating API calls).
+* This enables **end-to-end workflows**: login via API, validate DB state, continue on UI seamlessly.
+
+
+#### 2. **Cross-Browser & Cross-Platform Out of the Box**
+
+* Selenium needs separate driver binaries (ChromeDriver, GeckoDriver, etc.).
+* Playwright ships with all major browsers bundled and managed automatically.
+
+
+#### 4. **Faster Execution & Parallelization**
+
+* Playwright supports **parallel test execution** and **test isolation** out of the box.
+* Selenium requires external libraries/test runners (Mocha/Jest/TestNG, etc.) to achieve the same.
+
+#### 5. **Auto-Wait & Flake Reduction**
+
+* Selenium scripts often require manual waits (explicit/implicit).
+* Playwright has **auto-waiting** for elements, network stability, animations → drastically reduces flakiness.
+
+#### 6. **TypeScript Support**
+
+* Playwright is written in **TypeScript** with strong type definitions.
+* Provides better **intellisense, compile-time error detection**, and maintainability vs plain Selenium + JS.
+
+#### 7. **Test Generator & Inspector Tools**
+
+* Playwright has tools like **Codegen** (record and generate tests automatically).
+* Includes built-in **trace viewer, video recording, and screenshots** for debugging.
+* Selenium needs third-party tools to achieve the same.
+
+#### 8. **Network Interception & Mocking**
+
+* Playwright allows you to **mock/stub APIs, intercept network traffic, manipulate responses** → perfect for testing negative/failure scenarios.
+* Selenium cannot do this natively; you’d need tools like BrowserMob Proxy.
+
+#### 9. **CI/CD Friendly**
+
+* Playwright integrates easily with **GitHub Actions, Jenkins, Azure DevOps, etc.**.
+* Headless, container-friendly, faster execution → better suited for modern pipelines.
+
+#### 10. **Future Proof & Industry Trend**
+
+* Many companies are migrating towards Playwright/Cypress because Selenium is considered **legacy** for UI automation.
+* Playwright is backed by Microsoft, rapidly evolving, and gaining wide industry adoption.
+
+PLAYWRIGHT TUTORIAL
+
+https://www.youtube.com/watch?v=788GvvcfwTY
+
