@@ -629,4 +629,21 @@ Data Integrity: Check that the data within the response matches your expectation
 
 Beyond the Basics
 Error Handling: Include tests that deliberately trigger error scenarios (e.g., invalid input, missing resources) and ensure your API responds with appropriate error codes and messages.
-Parameterization: Use PyTest’s parameterization feature to efficiently test multiple input variations within a single test function.
+Parameterization: Use PyTest’s parameterization feature to efficiently test multiple input variations within a single test function.''
+
+------
+
+API test automation framework how build ? what challenges you got ? how resolved?
+https://medium.com/@m4manishd/building-a-robust-api-test-automation-framework-using-rest-assured-65a761751f82
+
+Schema Validation:
+Focuses on the structural integrity of data exchanged between API provider and consumer.
+API Contract Testing:
+A broader concept that verifies the entire agreement, or "contract," between an API provider and its consumers.
+Includes schema validation to ensure syntactic conformance (data structure).
+Extends beyond schema validation to cover behavioral aspects, such as:
+Expected response codes for various scenarios.
+Error handling mechanisms.
+Business logic and expected data values under specific conditions.
+Performance and latency expectations.
+
