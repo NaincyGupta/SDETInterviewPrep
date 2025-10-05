@@ -234,4 +234,253 @@ export async function changeOrientation(orientation: 'LANDSCAPE' | 'PORTRAIT') {
 You’ll build a **cross-platform framework** in **TypeScript using WebdriverIO + Appium**, follow **Page Object Model**, maintain **separate configs for iOS & Android**, and add **custom utilities for waits, device control, API validation, and logging**.
 
 ---
+MOBILE TESTING
+
+Perfect 👌 You’re asking exactly what a **hiring manager** wants to hear when they say “tell me how you’d build a mobile automation framework.” Let’s break it down **folder by folder** with reasoning, examples, and what lives inside.
+
+---
+
+# 📂 Mobile Test Automation Framework (Appium + WebdriverIO + TypeScript)
+
+```
+mobile-automation/
+├── configs/
+│   ├── wdio.android.conf.ts
+│   ├── wdio.ios.conf.ts
+│   ├── wdio.staging.conf.ts
+│   ├── wdio.prod.conf.ts
+│   └── wdio.shared.conf.ts
+│
+├── test/
+│   ├── specs/
+│   │   ├── login.spec.ts
+│   │   ├── checkout.spec.ts
+│   │   └── subscription.spec.ts
+│   │
+│   ├── pageobjects/
+│   │   ├── LoginScreen.ts
+│   │   ├── CheckoutScreen.ts
+│   │   ├── SubscriptionScreen.ts
+│   │   └── BaseScreen.ts
+│   │
+│   ├── data/
+│   │   ├── users.json
+│   │   ├── subscriptions.json
+│   │   └── payments.json
+│   │
+│   ├── utils/
+│   │   ├── waits.ts
+│   │   ├── gestures.ts
+│   │   ├── snapshot.ts
+│   │   ├── recorder.ts
+│   │   ├── apiHelper.ts
+│   │   └── dataSetup.ts
+│   │
+│   └── locators/
+│       ├── login.locators.ts
+│       ├── checkout.locators.ts
+│       └── subscription.locators.ts
+│
+├── reports/                # Test reports (Allure/HTML)
+├── ci/
+│   ├── regression.yml       # GitHub Actions workflow
+│   ├── smoke.yml
+│   └── nightly.yml
+│
+├── package.json
+└── tsconfig.json
+```
+
+---
+
+## 🔹 **1. Configs Folder**
+
+* `wdio.shared.conf.ts` → base config (timeouts, reporters, log levels).
+* `wdio.android.conf.ts` → Android capabilities.
+* `wdio.ios.conf.ts` → iOS capabilities.
+* `wdio.staging.conf.ts`, `wdio.prod.conf.ts` → env-specific base URLs.
+
+👉 **Example (Android config)**:
+
+```ts
+export const config = {
+  ...shared,
+  capabilities: [{
+    platformName: 'Android',
+    deviceName: 'Pixel_5',
+    automationName: 'UiAutomator2',
+    app: './apps/android/MyApp.apk'
+  }]
+};
+```
+
+---
+
+## 🔹 **2. Specs Folder (Test cases)**
+
+* Each `.spec.ts` represents an E2E flow.
+* Follow BDD-style naming for readability.
+
+👉 Example: `login.spec.ts`
+
+```ts
+import LoginScreen from '../pageobjects/LoginScreen';
+
+describe('Login Tests', () => {
+  it('should login with valid credentials', async () => {
+    await LoginScreen.login('testUser', 'testPass');
+    expect(await $('~welcomeMessage')).toBeDisplayed();
+  });
+
+  it('should show error for invalid login', async () => {
+    await LoginScreen.login('wrong', 'wrong');
+    expect(await $('~errorMessage')).toHaveText('Invalid credentials');
+  });
+});
+```
+
+---
+
+## 🔹 **3. PageObjects Folder**
+
+* Encapsulates screens + methods.
+* Inherits from a `BaseScreen` class with generic methods (tap, wait, swipe).
+
+👉 Example: `LoginScreen.ts`
+
+```ts
+import locators from '../locators/login.locators';
+
+class LoginScreen {
+  get username() { return $(locators.username); }
+  get password() { return $(locators.password); }
+  get loginBtn() { return $(locators.loginBtn); }
+
+  async login(user: string, pass: string) {
+    await this.username.setValue(user);
+    await this.password.setValue(pass);
+    await this.loginBtn.click();
+  }
+}
+export default new LoginScreen();
+```
+
+---
+
+## 🔹 **4. Locators Folder**
+
+* Keeps Android and iOS locators separate.
+* Use `platformName` check inside locators.
+
+👉 Example: `login.locators.ts`
+
+```ts
+export default {
+  username: driver.isAndroid ? 'android=new UiSelector().resourceId("username")' : '~username',
+  password: driver.isAndroid ? 'android=new UiSelector().resourceId("password")' : '~password',
+  loginBtn: driver.isAndroid ? 'android=new UiSelector().text("Login")' : '~loginBtn'
+};
+```
+
+---
+
+## 🔹 **5. Data Folder**
+
+* Test data in JSON/TS for reusability.
+
+👉 Example: `users.json`
+
+```json
+{
+  "validUser": { "username": "testUser", "password": "testPass" },
+  "invalidUser": { "username": "wrong", "password": "wrong" }
+}
+```
+
+---
+
+## 🔹 **6. Utils Folder**
+
+* `waits.ts` → explicit waits.
+* `gestures.ts` → swipe, scroll, drag/drop.
+* `snapshot.ts` → take screenshot after each failure.
+* `recorder.ts` → start/stop screen recording (Appium APIs).
+* `apiHelper.ts` → REST calls for setup/teardown.
+* `dataSetup.ts` → create test users/subscriptions before test run.
+
+👉 Example: `waits.ts`
+
+```ts
+export async function waitForDisplayed(element, timeout = 10000) {
+  await element.waitForDisplayed({ timeout });
+}
+```
+
+👉 Example: `snapshot.ts`
+
+```ts
+export async function takeScreenshot(testName: string) {
+  await driver.saveScreenshot(`./reports/screenshots/${testName}.png`);
+}
+```
+
+---
+
+## 🔹 **7. CI Folder (Automation Pipelines)**
+
+* `regression.yml` → full regression suite nightly.
+* `smoke.yml` → smoke tests on each PR.
+* `nightly.yml` → run on device cloud (BrowserStack/Sauce).
+
+👉 Example snippet from `regression.yml`
+
+```yml
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run Android regression
+        run: npx wdio ./configs/wdio.android.conf.ts
+      - name: Run iOS regression
+        run: npx wdio ./configs/wdio.ios.conf.ts
+```
+
+---
+
+## 🔹 **8. Package.json Scripts**
+
+```json
+"scripts": {
+  "test:android": "wdio ./configs/wdio.android.conf.ts",
+  "test:ios": "wdio ./configs/wdio.ios.conf.ts",
+  "test:smoke": "wdio ./configs/wdio.staging.conf.ts --suite smoke",
+  "test:regression": "wdio ./configs/wdio.prod.conf.ts --suite regression",
+  "report:allure": "allure generate ./reports/allure-results --clean && allure open"
+}
+```
+
+---
+
+## 🔹 **9. Performance, Load, Stress**
+
+* **Mobile app performance** → Appium + `adb` (Android) or Xcode Instruments (iOS).
+* **API layer performance** → Integrate **JMeter or k6** in parallel for load/stress tests.
+* Report latency, memory, CPU usage alongside functional test reports.
+
+---
+
+✅ This structure covers:
+
+* **Scalable design** (POM, configs per env/platform)
+* **Maintainability** (locators & data separate)
+* **Utilities** for common tasks
+* **CI/CD** ready with regression/smoke pipelines
+* **Performance/load testing** extensions
+
+---
+
+
 
