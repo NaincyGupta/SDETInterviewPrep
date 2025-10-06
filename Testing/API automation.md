@@ -647,3 +647,11 @@ Error handling mechanisms.
 Business logic and expected data values under specific conditions.
 Performance and latency expectations.
 
+Useful youtube videos
+
+postman api test automation
+https://www.youtube.com/watch?v=Ix6z1kBweuk
+https://www.youtube.com/watch?v=zp5Jh2FIpF0&t=19s
+
+https://www.youtube.com/@testerstalk
+
